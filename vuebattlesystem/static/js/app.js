@@ -8,10 +8,14 @@ new Vue({
         turns: []
     },
     methods: {
+
+        // These are game logic functions
+
         startGame: function () {
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+            this.turns = []
         },
 
         calcDamage: function (min, max) {
@@ -47,6 +51,8 @@ new Vue({
             return false;
         },
 
+
+        // This is where various button functions live.
         attack: function () {
             let damage = this.calcDamage(3, 10)
             this.monsterHealth -= damage
@@ -63,13 +69,15 @@ new Vue({
 
         },
         specialAttack: function () {
-
-            this.monsterHealth -= this.calcDamage(10, 20)
-            
+            let damage = this.calcDamage(10, 20)
+            this.monsterHealth -= damage
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'You swing harder and hit the Monster for ' + damage
+            })
             if (this.checkWin()) {
                 return;
             }
-
             this.monsterAttacks()
 
             
@@ -79,6 +87,10 @@ new Vue({
             if( this.playerHealth <= 90) {
                 this.playerHealth += 10
             } else {this.playerHealth = 100}
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'You focus on defence to regain 10 health'
+            })
             this.monsterAttacks()
         },
         giveUp: function () {
