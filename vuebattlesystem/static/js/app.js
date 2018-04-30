@@ -18,6 +18,12 @@ new Vue({
                 let damage = Math.max(Math.floor(Math.random() * max) +1, min)
                 this.monsterHealth -= damage
 
+                if (this.monsterHealth <= 0 ) {
+                    alert('You Won')
+                    this.gameIsRunning = false
+                    return;
+                }
+
                 max = 12
                 min = 5
                 damage = Math.max(Math.floor(Math.random() * max) +1, min)
