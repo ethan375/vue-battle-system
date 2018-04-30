@@ -17,6 +17,11 @@ new Vue({
             return Math.max(Math.floor(Math.random() * max) + 1, min)
         },
 
+        monsterAttacks: function(){
+            this.playerHealth -= this.calcDamage(5, 12)
+            this.checkWin()
+        },
+
         checkWin: function () {
             if (this.monsterHealth <= 0) {
                 if (confirm('You won! New Game?')) {
@@ -44,12 +49,20 @@ new Vue({
                 return;
             }
 
-            this.playerHealth -= this.calcDamage(5, 12)
-
-            this.checkWin()
+            this.monsterAttacks()
 
         },
         specialAttack: function () {
+
+            this.monsterHealth -= this.calcDamage(10, 20)
+            
+            if (this.checkWin()) {
+                return;
+            }
+
+            this.monsterAttacks()
+
+            
 
         },
         heal: function () {
