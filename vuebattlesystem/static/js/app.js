@@ -29,6 +29,11 @@ new Vue({
                 damage = Math.max(Math.floor(Math.random() * max) +1, min)
                 this.playerHealth -= damage
 
+                if (this.playerHealth <= 0 ) {
+                    alert('You Lost')
+                    this.gameIsRunning = false
+                  
+                }
             },
             specialAttack: function () {
 
